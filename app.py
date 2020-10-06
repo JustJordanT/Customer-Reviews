@@ -52,7 +52,7 @@ def submit():
         rating = request.form['rating']
         comments = request.form['comments']
         # print(customer,storelocation,rating,comments)wsa
-        if first_name == '' or last_name == '' or store_location == '':
+        if first_name == '' or last_name == '' or store_location == '' or product == '':
             return render_template('index.html', message='Please enter the required field')
         #if db.session.query(Feedback).filter(Feedback.first_name == first_name).count() == 0:
         data = Feedback(first_name, last_name, store_location, rating, comments)
