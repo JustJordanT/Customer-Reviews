@@ -29,9 +29,10 @@ class Feedback(db.Model):
     rating = db.Column(db.Integer)
     comments = db.Column(db.Text())
 
-    def __init__(self, first_name, last_name, store_location, rating, comments):
+    def __init__(self, first_name, last_name, product, store_location, rating, comments):
         self.first_name = first_name
         self.last_name = last_name
+        self.product = product
         self.store_location = store_location
         self.rating = rating
         self.comments = comments
@@ -58,7 +59,7 @@ def submit():
         data = Feedback(first_name, last_name, store_location, rating, comments)
         db.session.add(data)
         db.session.commit()
-            #send_mail(customer, storelocation, rating, comments)
+        send_mail(first_name, last_name, store_location, rating, comments)
         return render_template('success.html')
         #return render_template('index.html', message='We are sorry but, you have already submitted feedback.')
 
