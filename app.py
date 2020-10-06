@@ -52,16 +52,19 @@ def submit():
         store_location = request.form['store_location']
         rating = request.form['rating']
         comments = request.form['comments']
-        # print(customer,storelocation,rating,comments)wsa
-        if first_name == '' or last_name == '' or store_location == '' or product == '':
+        #print(first_name, last_name, store_location, rating, comments)
+        if first_name == '' or last_name == '' or store_location == '':
             return render_template('index.html', message='Please enter the required field')
         #if db.session.query(Feedback).filter(Feedback.first_name == first_name).count() == 0:
+        # TODO Currenly not writing to DB. erroring out on line #61 data var.
+        db.session.query(Feedback)
         data = Feedback(first_name, last_name, store_location, rating, comments)
         db.session.add(data)
         db.session.commit()
-        send_mail(first_name, last_name, store_location, rating, comments)
+        # send_mail(first_name, last_name, store_location, rating, comments)
         return render_template('success.html')
         #return render_template('index.html', message='We are sorry but, you have already submitted feedback.')
+
 
 if __name__ == '__main__':
     app.run()
